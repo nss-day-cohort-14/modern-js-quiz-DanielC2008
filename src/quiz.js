@@ -66,3 +66,14 @@ let Minotaur = function() {
 	this.attack = Math.floor((Math.random() * (50-40)-1) + 40);
 };
 Minotaur.prototype = new ATV();
+
+viperBot = new Viper();
+hawkBot = new Hawk();
+ninjaBot = new Ninja();
+assassinBot = new Assassin();
+behemothBot = new Behemoth();
+minotaurBot = new Minotaur();
+
+let typesArray = [viperBot, hawkBot, ninjaBot, assassinBot, behemothBot, minotaurBot];
+
+module.exports = typesArray;
