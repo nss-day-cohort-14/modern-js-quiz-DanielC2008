@@ -67,12 +67,12 @@ let Minotaur = function() {
 };
 Minotaur.prototype = new ATV();
 
-viperBot = new Viper();
-hawkBot = new Hawk();
-ninjaBot = new Ninja();
-assassinBot = new Assassin();
-behemothBot = new Behemoth();
-minotaurBot = new Minotaur();
+let viperBot = new Viper();
+let hawkBot = new Hawk();
+let ninjaBot = new Ninja();
+let assassinBot = new Assassin();
+let behemothBot = new Behemoth();
+let minotaurBot = new Minotaur();
 
 let typesArray = [viperBot, hawkBot, ninjaBot, assassinBot, behemothBot, minotaurBot];
 

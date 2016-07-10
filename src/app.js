@@ -1,4 +1,6 @@
 "use strict";
 
-let quiz = require("./quiz");
-let Dom = require("./DomHandler");
+// const quiz = require("./quiz");
+const domHandler = require("./domHandler");
+
+domHandler();
