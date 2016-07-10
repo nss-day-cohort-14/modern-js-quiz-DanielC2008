@@ -6,14 +6,9 @@ let nameTwo;
 
 //STORE NAME
 $("input").keypress( (e) => {
-	if (e.which == 13) {
-		if (e.target.id === "player1"){
-			nameOne = $(e.target).val();
-		}
-		else if (e.target.id === "player2"){
-			nameTwo = $(e.target).val();
-		}
-	}
+	 let enter = e.which === 13 ?  
+		(e.target.id === "player1" ? (nameOne = $(e.target).val()) : (nameTwo = $(e.target).val()))
+	 : null;
 });
 
 
@@ -21,11 +16,9 @@ $("input").keypress( (e) => {
 $("select").change( (e) => {
 	let robot;
 	typesArray.forEach( (index) => {
-		if (index.model === $(e.target).val()) {
-			robot = index;
-		}
+		let getModel = index.model === $(e.target).val() ? (robot = index) : null; 
 	});
-		let check = e.target.id === "robotSelect1" ? createRbt1(robot) : createRbt2(robot);
+		let getRobotDiv = e.target.id === "robotSelect1" ? createRbt1(robot) : createRbt2(robot);
 });
 
 
