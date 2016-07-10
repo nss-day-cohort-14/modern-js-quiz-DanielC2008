@@ -25,15 +25,29 @@ $("select").change( (e) => {
 			robot = index;
 		}
 	});
-		e.target.id = "robots1" ? createRbt1(robot) : createRbt2(robot);
+		let check = e.target.id === "robotSelect1" ? createRbt1(robot) : createRbt2(robot);
 });
 
 
 //ADD NAME AND SEND TO DOM
 let createRbt1 = (robot) => {
-	console.log(robot);
+	let a = `Model: ${robot.model}`, b = `Name: ${nameOne}`, c = `Current Health: ${robot.health}`, d = `Damage: ${robot.attack}`;
+	let robAttr = [a, b, c, d];
+	let rob = $("#robot1");
+	rob.empty();
+	robAttr.forEach( (index) => {
+		let create = $("<div>").html(`${index}`);
+		rob.append(create);
+	});
 };
 
 let createRbt2 = (robot) => {
-console.log(robot);
+	let a = `Model: ${robot.model}`, b = `Name: ${nameTwo}`, c = `Current Health: ${robot.health}`, d = `Damage: ${robot.attack}`;
+	let robAttr = [a, b, c, d];
+	let rob = $("#robot2");
+	rob.empty();
+	robAttr.forEach( (index) => {
+		let create = $("<div>").html(`${index}`);
+		rob.append(create);
+	});
 };

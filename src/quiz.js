@@ -3,7 +3,7 @@
 //CREATE ROBOT OBJECT
 let Robot = function() {
 	this.robot = true;
-	this.name = null;
+	this.name = "Unnamed Killer";
 	this.health = null;
 	this.attck = null;
 };
