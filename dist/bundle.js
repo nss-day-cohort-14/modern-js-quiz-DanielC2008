@@ -3,10 +3,36 @@
 
 // const quiz = require("./quiz");
 const domHandler = require("./domHandler");
+const buildRobot = require("./buildRobot.js");
 
 domHandler();
 
-},{"./domHandler":2}],2:[function(require,module,exports){
+},{"./buildRobot.js":2,"./domHandler":3}],2:[function(require,module,exports){
+"use strict";
+
+const typesArray = require("./quiz");
+let nameOne;
+let nameTwo;
+
+
+$("input").keypress( (e) => {
+	if (e.which == 13) {
+		if (e.target.id === "player1"){
+			nameOne = $(e.target).val();
+		}
+		else if (e.target.id === "player2"){
+			nameTwo = $(e.target).val();
+		}
+	}
+});
+
+$("#robots1").change( () => {
+	console.log("hello");
+});
+
+
+
+},{"./quiz":4}],3:[function(require,module,exports){
 "use strict";
 
 const typesArray = require("./quiz");
@@ -21,7 +47,7 @@ let buildSelect = () => {
 
 module.exports = buildSelect;
 
-},{"./quiz":3}],3:[function(require,module,exports){
+},{"./quiz":4}],4:[function(require,module,exports){
 "use strict";
 
 //CREATE ROBOT OBJECT
