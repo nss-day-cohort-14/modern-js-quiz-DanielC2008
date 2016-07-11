@@ -1,11 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
+
 const domHandler = require("./domHandler");
 const buildRobot = require("./buildRobot");
-const attack = require("./attack");
+const handleFight = require("./handleFight");
 
-domHandler();
+domHandler.buildSelect();
 
 $("input").keypress( function(e) {
 	buildRobot.storeName(e, $(this));
@@ -16,47 +17,21 @@ $("select").change( function() {
 });
 
 $("#attack").click(() => {	
-	attack();
+	handleFight();
 });
-},{"./attack":2,"./buildRobot":3,"./domHandler":4}],2:[function(require,module,exports){
+
+
+},{"./buildRobot":3,"./domHandler":4,"./handleFight":5}],2:[function(require,module,exports){
 "use strict";
 
-const buildRobot = require("./buildRobot");
-
-function attack() {
-	let robotOne = buildRobot.robotOne[0];
-	let robotTwo = buildRobot.robotTwo[0];
-	
-	robotTwo.health = robotTwo.health - robotOne.attack;
-	if (robotTwo.health <= 0) {
-		announce(robotOne.name, robotTwo.name);
-		return;
-	}
-	else {
-		buildRobot.createRbt(robotTwo, "robotSelect2");
-		robotOne.health = robotOne.health - robotOne.attack;
-	}
-	if (robotOne.health <= 0) {
-		announce(robotTwo.name, robotOne.name);
-		return;
-	}
-	else {
-	buildRobot.createRbt(robotOne, "robotSelect1");
-
-	}
-}
-
-function announce(winner, loser) {
-	let announcement = $("#announcement");
-	let winnerDiv = $("<div>").html(`${winner} destroyed ${loser}!`);
-	announcement.append(winnerDiv);
-	$("#attack").prop("disabled", true);
+function attack(offense, defense) {
+defense.health = defense.health - offense.attack;
 }
 
 module.exports = attack;
 
 
-},{"./buildRobot":3}],3:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 "use strict";
 
 const typesArray = require("./quiz");
@@ -103,7 +78,7 @@ function createRbt(robot, divId) {
 
 
 module.exports = {robotOne, robotTwo, createRbt, storeName, rbtObj};
-},{"./quiz":5}],4:[function(require,module,exports){
+},{"./quiz":6}],4:[function(require,module,exports){
 "use strict";
 
 const typesArray = require("./quiz");
@@ -117,9 +92,48 @@ let buildSelect = () => {
 	});
 };
 
-module.exports = buildSelect;
+// ANNOUNCE WINNER/////////
+function announce(winner, loser) {
+	let announcement = $("#announcement");
+	let winnerDiv = $("<div>").html(`${winner} destroyed ${loser}!`);
+	announcement.append(winnerDiv);
+	$("#attack").prop("disabled", true);
+}
 
-},{"./quiz":5}],5:[function(require,module,exports){
+module.exports = {buildSelect, announce};
+
+},{"./quiz":6}],5:[function(require,module,exports){
+"use strict";
+
+const buildRobot = require("./buildRobot");
+const domHandler = require("./domHandler");
+const attack = require("./attack");
+
+function handleFight() {
+	let robotOne = buildRobot.robotOne[0];
+	let robotTwo = buildRobot.robotTwo[0];
+
+	attack(robotOne, robotTwo);
+	if (robotTwo.health <= 0) {
+		domHandler.announce(robotOne.name, robotTwo.name);
+		return;
+	}
+	else {
+		buildRobot.createRbt(robotTwo, "robotSelect2");
+		attack(robotTwo, robotOne);
+	}
+	if (robotOne.health <= 0) {
+		domHandler.announce(robotTwo.name, robotOne.name);
+		return;
+	}
+	else {
+	buildRobot.createRbt(robotOne, "robotSelect1");
+
+	}
+}
+
+module.exports = handleFight;
+},{"./attack":2,"./buildRobot":3,"./domHandler":4}],6:[function(require,module,exports){
 "use strict";
 
 //CREATE ROBOT OBJECT

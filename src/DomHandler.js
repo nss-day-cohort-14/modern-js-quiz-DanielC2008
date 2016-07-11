@@ -11,4 +11,12 @@ let buildSelect = () => {
 	});
 };
 
-module.exports = buildSelect;
+// ANNOUNCE WINNER/////////
+function announce(winner, loser) {
+	let announcement = $("#announcement");
+	let winnerDiv = $("<div>").html(`${winner} destroyed ${loser}!`);
+	announcement.append(winnerDiv);
+	$("#attack").prop("disabled", true);
+}
+
+module.exports = {buildSelect, announce};

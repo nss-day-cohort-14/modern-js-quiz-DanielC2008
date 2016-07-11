@@ -23,6 +23,5 @@ describe("the specificaion for Robots", function() {
 		Rob.attack = 11;
 		Rob2.attack = 10;
 		expect(Rob2.health - Rob.attack).toBe(0);
-		expect(Rob.health - Rob2.attack).toBe(0);
 	});
 });
