@@ -1,27 +1,44 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
-// const quiz = require("./quiz");
 const domHandler = require("./domHandler");
-const buildRobot = require("./buildRobot.js");
-const attack = require("./attack.js");
+const buildRobot = require("./buildRobot");
+const attack = require("./attack");
 
 domHandler();
 
-},{"./attack.js":2,"./buildRobot.js":3,"./domHandler":4}],2:[function(require,module,exports){
+$("input").keypress( (e) => {
+	buildRobot.storeName(e);
+});
+
+$("select").change( (e) => {
+	buildRobot.rbtObj(e);
+});
+
+
+$("#attack").click(() => {	
+	attack();
+});
+},{"./attack":2,"./buildRobot":3,"./domHandler":4}],2:[function(require,module,exports){
 "use strict";
 
-let buildRobot = require("./buildRobot");
+const buildRobot = require("./buildRobot");
 let robotOne = buildRobot.robotOne;
 let robotTwo = buildRobot.robotTwo;
 
 
-$("#attack").click(() => {	
+
+
+
+function attack(){
 	robotTwo[0].health = robotTwo[0].health - robotOne[0].attack;	
 	buildRobot.createRbt(robotTwo[0], "robotSelect2");
 	robotOne[0].health = robotOne[0].health - robotOne[0].attack;	
 	buildRobot.createRbt(robotOne[0], "robotSelect1");
-});
+}
+
+
+module.exports = attack;
 },{"./buildRobot":3}],3:[function(require,module,exports){
 "use strict";
 
@@ -32,15 +49,15 @@ let robotOne = [];
 let robotTwo = [];
 
 //STORE NAME
-$("input").keypress( (e) => {
+function storeName(e) {
 	 let enter = e.which === 13 ?  
 		(e.target.id === "player1" ? (nameOne = $(e.target).val()) : (nameTwo = $(e.target).val())) 
 		: null;
-});
+};
 
 
 //CREATE ROBOT OBJECT AND NAME
-$("select").change( (e) => {
+function rbtObj(e) {
 	let robot;
 	let divId = e.target.id;
 	typesArray.forEach( (index) => {
@@ -50,11 +67,11 @@ $("select").change( (e) => {
 			(nameOne !== undefined ? (robot.name = nameOne) : (robot.name)):
 			(nameTwo !== undefined ? (robot.name = nameTwo) : (robot.name));
 		createRbt(robot, divId);
-});
+};
 
 
 //SEND TO DOM AND MAKE OBJECT ACCESSIBLE/////// Make two different functions to make cards
-let createRbt = (robot, divId) => {
+function createRbt(robot, divId) {
 	let robotEl; 
 	let accessRob = divId === "robotSelect1" ? (robotOne.splice(0, 1, robot)) : (robotTwo.splice(0, 1, robot));
 	let selectDiv = divId === "robotSelect1" ? (robotEl = $("#robot1")) : (robotEl = $("#robot2"));
@@ -67,7 +84,8 @@ let createRbt = (robot, divId) => {
 	});
 };
 
-module.exports = {robotOne, robotTwo, createRbt};
+
+module.exports = {robotOne, robotTwo, createRbt, storeName, rbtObj};
 },{"./quiz":5}],4:[function(require,module,exports){
 "use strict";
 

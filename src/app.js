@@ -1,8 +1,20 @@
 "use strict";
 
-// const quiz = require("./quiz");
 const domHandler = require("./domHandler");
-const buildRobot = require("./buildRobot.js");
-const attack = require("./attack.js");
+const buildRobot = require("./buildRobot");
+const attack = require("./attack");
 
 domHandler();
+
+$("input").keypress( (e) => {
+	buildRobot.storeName(e);
+});
+
+$("select").change( (e) => {
+	buildRobot.rbtObj(e);
+});
+
+
+$("#attack").click(() => {	
+	attack();
+});

@@ -7,15 +7,15 @@ let robotOne = [];
 let robotTwo = [];
 
 //STORE NAME
-$("input").keypress( (e) => {
+function storeName(e) {
 	 let enter = e.which === 13 ?  
 		(e.target.id === "player1" ? (nameOne = $(e.target).val()) : (nameTwo = $(e.target).val())) 
 		: null;
-});
+};
 
 
 //CREATE ROBOT OBJECT AND NAME
-$("select").change( (e) => {
+function rbtObj(e) {
 	let robot;
 	let divId = e.target.id;
 	typesArray.forEach( (index) => {
@@ -25,11 +25,11 @@ $("select").change( (e) => {
 			(nameOne !== undefined ? (robot.name = nameOne) : (robot.name)):
 			(nameTwo !== undefined ? (robot.name = nameTwo) : (robot.name));
 		createRbt(robot, divId);
-});
+};
 
 
 //SEND TO DOM AND MAKE OBJECT ACCESSIBLE/////// Make two different functions to make cards
-let createRbt = (robot, divId) => {
+function createRbt(robot, divId) {
 	let robotEl; 
 	let accessRob = divId === "robotSelect1" ? (robotOne.splice(0, 1, robot)) : (robotTwo.splice(0, 1, robot));
 	let selectDiv = divId === "robotSelect1" ? (robotEl = $("#robot1")) : (robotEl = $("#robot2"));
@@ -42,4 +42,5 @@ let createRbt = (robot, divId) => {
 	});
 };
 
-module.exports = {robotOne, robotTwo, createRbt};
+
+module.exports = {robotOne, robotTwo, createRbt, storeName, rbtObj};
