@@ -7,25 +7,25 @@ let robotOne = [];
 let robotTwo = [];
 
 //STORE NAME
-function storeName(e) {
-	 let enter = e.which === 13 ?  
-		(e.target.id === "player1" ? (nameOne = $(e.target).val()) : (nameTwo = $(e.target).val())) 
-		: null;
-};
+function storeName(e, $input) {
+  let enter = e.which === 13 ?  
+	 ($input.attr("id") === "player1" ? (nameOne = $input.val()) : (nameTwo = $input.val())) 
+	 : null;
+}
 
 
 //CREATE ROBOT OBJECT AND NAME
-function rbtObj(e) {
+function rbtObj($select) {
 	let robot;
-	let divId = e.target.id;
+	let divId = $select.attr("id");
 	typesArray.forEach( (index) => {
-		let getModel = index.model === $(e.target).val() ? (robot = index) : null; 
+		let getModel = index.model === $select.val() ? (robot = index) : null; 
 	});
 		let selectName = divId === "robotSelect1" ?
 			(nameOne !== undefined ? (robot.name = nameOne) : (robot.name)):
 			(nameTwo !== undefined ? (robot.name = nameTwo) : (robot.name));
 		createRbt(robot, divId);
-};
+}
 
 
 //SEND TO DOM AND MAKE OBJECT ACCESSIBLE////
@@ -40,7 +40,7 @@ function createRbt(robot, divId) {
 	let create = $("<div>").html(`${index}`);
 	robotEl.append(create);
 	});
-};
+}
 
 
 module.exports = {robotOne, robotTwo, createRbt, storeName, rbtObj};

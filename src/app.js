@@ -6,12 +6,12 @@ const attack = require("./attack");
 
 domHandler();
 
-$("input").keypress( (e) => {
-	buildRobot.storeName(e);
+$("input").keypress( function(e) {
+	buildRobot.storeName(e, $(this));
 });
 
-$("select").change( (e) => {
-	buildRobot.rbtObj(e);
+$("select").change( function() {
+	buildRobot.rbtObj($(this));
 });
 
 $("#attack").click(() => {	

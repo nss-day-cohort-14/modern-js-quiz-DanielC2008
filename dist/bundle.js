@@ -7,12 +7,12 @@ const attack = require("./attack");
 
 domHandler();
 
-$("input").keypress( (e) => {
-	buildRobot.storeName(e);
+$("input").keypress( function(e) {
+	buildRobot.storeName(e, $(this));
 });
 
-$("select").change( (e) => {
-	buildRobot.rbtObj(e);
+$("select").change( function() {
+	buildRobot.rbtObj($(this));
 });
 
 $("#attack").click(() => {	
@@ -23,19 +23,39 @@ $("#attack").click(() => {
 
 const buildRobot = require("./buildRobot");
 
-
-
-function attack(){
+function attack() {
 	let robotOne = buildRobot.robotOne[0];
 	let robotTwo = buildRobot.robotTwo[0];
-	robotTwo.health = robotTwo.health - robotOne.attack;	
-	buildRobot.createRbt(robotTwo, "robotSelect2");
-	robotOne.health = robotOne.health - robotOne.attack;	
+	
+	robotTwo.health = robotTwo.health - robotOne.attack;
+	if (robotTwo.health <= 0) {
+		announce(robotOne.name, robotTwo.name);
+		return;
+	}
+	else {
+		buildRobot.createRbt(robotTwo, "robotSelect2");
+		robotOne.health = robotOne.health - robotOne.attack;
+	}
+	if (robotOne.health <= 0) {
+		announce(robotTwo.name, robotOne.name);
+		return;
+	}
+	else {
 	buildRobot.createRbt(robotOne, "robotSelect1");
+
+	}
 }
 
+function announce(winner, loser) {
+	let announcement = $("#announcement");
+	let winnerDiv = $("<div>").html(`${winner} destroyed ${loser}!`);
+	announcement.append(winnerDiv);
+	$("#attack").prop("disabled", true);
+}
 
 module.exports = attack;
+
+
 },{"./buildRobot":3}],3:[function(require,module,exports){
 "use strict";
 
@@ -46,25 +66,25 @@ let robotOne = [];
 let robotTwo = [];
 
 //STORE NAME
-function storeName(e) {
-	 let enter = e.which === 13 ?  
-		(e.target.id === "player1" ? (nameOne = $(e.target).val()) : (nameTwo = $(e.target).val())) 
-		: null;
-};
+function storeName(e, $input) {
+  let enter = e.which === 13 ?  
+	 ($input.attr("id") === "player1" ? (nameOne = $input.val()) : (nameTwo = $input.val())) 
+	 : null;
+}
 
 
 //CREATE ROBOT OBJECT AND NAME
-function rbtObj(e) {
+function rbtObj($select) {
 	let robot;
-	let divId = e.target.id;
+	let divId = $select.attr("id");
 	typesArray.forEach( (index) => {
-		let getModel = index.model === $(e.target).val() ? (robot = index) : null; 
+		let getModel = index.model === $select.val() ? (robot = index) : null; 
 	});
 		let selectName = divId === "robotSelect1" ?
 			(nameOne !== undefined ? (robot.name = nameOne) : (robot.name)):
 			(nameTwo !== undefined ? (robot.name = nameTwo) : (robot.name));
 		createRbt(robot, divId);
-};
+}
 
 
 //SEND TO DOM AND MAKE OBJECT ACCESSIBLE////
@@ -79,7 +99,7 @@ function createRbt(robot, divId) {
 	let create = $("<div>").html(`${index}`);
 	robotEl.append(create);
 	});
-};
+}
 
 
 module.exports = {robotOne, robotTwo, createRbt, storeName, rbtObj};
