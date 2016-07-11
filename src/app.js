@@ -14,7 +14,6 @@ $("select").change( (e) => {
 	buildRobot.rbtObj(e);
 });
 
-
 $("#attack").click(() => {	
 	attack();
 });

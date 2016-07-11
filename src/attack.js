@@ -1,18 +1,16 @@
 "use strict";
 
 const buildRobot = require("./buildRobot");
-let robotOne = buildRobot.robotOne;
-let robotTwo = buildRobot.robotTwo;
-
-
 
 
 
 function attack(){
-	robotTwo[0].health = robotTwo[0].health - robotOne[0].attack;	
-	buildRobot.createRbt(robotTwo[0], "robotSelect2");
-	robotOne[0].health = robotOne[0].health - robotOne[0].attack;	
-	buildRobot.createRbt(robotOne[0], "robotSelect1");
+	let robotOne = buildRobot.robotOne[0];
+	let robotTwo = buildRobot.robotTwo[0];
+	robotTwo.health = robotTwo.health - robotOne.attack;	
+	buildRobot.createRbt(robotTwo, "robotSelect2");
+	robotOne.health = robotOne.health - robotOne.attack;	
+	buildRobot.createRbt(robotOne, "robotSelect1");
 }
 
 

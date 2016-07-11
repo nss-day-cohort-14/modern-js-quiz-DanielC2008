@@ -5,7 +5,7 @@ let Robot = function() {
 	this.robot = true;
 	this.name = "Unnamed Killer";
 	this.health = null;
-	this.attck = null;
+	this.attack = null;
 };
 
 //CREATE TYPE

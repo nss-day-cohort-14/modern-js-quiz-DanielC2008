@@ -28,7 +28,7 @@ function rbtObj(e) {
 };
 
 
-//SEND TO DOM AND MAKE OBJECT ACCESSIBLE/////// Make two different functions to make cards
+//SEND TO DOM AND MAKE OBJECT ACCESSIBLE////
 function createRbt(robot, divId) {
 	let robotEl; 
 	let accessRob = divId === "robotSelect1" ? (robotOne.splice(0, 1, robot)) : (robotTwo.splice(0, 1, robot));
