@@ -50,15 +50,14 @@ function storeName(e, $input) {
 
 //CREATE ROBOT OBJECT AND NAME
 function rbtObj($select) {
-	let robot;
 	let divId = $select.attr("id");
-	typesArray.forEach( (index) => {
-		let getModel = index.model === $select.val() ? (robot = index) : null; 
+	let robot = typesArray.filter(function(curr) {
+		return curr.model === $select.val();
 	});
 		let selectName = divId === "robotSelect1" ?
-			(nameOne !== undefined ? (robot.name = nameOne) : (robot.name)):
-			(nameTwo !== undefined ? (robot.name = nameTwo) : (robot.name));
-		createRbt(robot, divId);
+			(nameOne !== undefined ? (robot[0].name = nameOne) : (robot.name)):
+			(nameTwo !== undefined ? (robot[0].name = nameTwo) : (robot.name));
+		createRbt(robot[0], divId);
 }
 
 
