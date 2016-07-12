@@ -3,8 +3,8 @@
 const typesArray = require("./quiz");
 
 //Build up select element
-let buildSelect = () => {
-	let robots = $("select").append("<option>");
+const buildSelect = () => {
+	const robots = $("select").append("<option>");
 	typesArray.forEach( (index) => {
 		let option = $("<option>").html(`${index.model}`);
 		robots.append(option);
@@ -13,7 +13,7 @@ let buildSelect = () => {
 
 // ANNOUNCE WINNER/////////
 function announce(winner, loser) {
-	let announcement = $("#announcement");
+	const announcement = $("#announcement");
 	let winnerDiv = $("<div>").html(`${winner} destroyed ${loser}!`);
 	announcement.append(winnerDiv);
 	$("#attack").prop("disabled", true);

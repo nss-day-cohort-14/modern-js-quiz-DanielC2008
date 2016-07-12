@@ -8,7 +8,7 @@ let robotTwo = [];
 
 //STORE NAME
 function storeName(e, $input) {
-  let enter = e.which === 13 ?  
+  const enter = e.which === 13 ?  
 	 ($input.attr("id") === "player1" ? (nameOne = $input.val()) : (nameTwo = $input.val())) 
 	 : null;
 }
@@ -17,7 +17,7 @@ function storeName(e, $input) {
 //CREATE ROBOT OBJECT AND NAME
 function rbtObj($select) {
 	let divId = $select.attr("id");
-	let robot = typesArray.filter(function(curr) {
+	let robot = typesArray.filter((curr) => {
 		return curr.model === $select.val();
 	});
 		let selectName = divId === "robotSelect1" ?

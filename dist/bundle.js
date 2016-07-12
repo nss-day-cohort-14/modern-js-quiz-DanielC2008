@@ -42,7 +42,7 @@ let robotTwo = [];
 
 //STORE NAME
 function storeName(e, $input) {
-  let enter = e.which === 13 ?  
+  const enter = e.which === 13 ?  
 	 ($input.attr("id") === "player1" ? (nameOne = $input.val()) : (nameTwo = $input.val())) 
 	 : null;
 }
@@ -51,7 +51,7 @@ function storeName(e, $input) {
 //CREATE ROBOT OBJECT AND NAME
 function rbtObj($select) {
 	let divId = $select.attr("id");
-	let robot = typesArray.filter(function(curr) {
+	let robot = typesArray.filter((curr) => {
 		return curr.model === $select.val();
 	});
 		let selectName = divId === "robotSelect1" ?
@@ -83,8 +83,8 @@ module.exports = {robotOne, robotTwo, createRbt, storeName, rbtObj};
 const typesArray = require("./quiz");
 
 //Build up select element
-let buildSelect = () => {
-	let robots = $("select").append("<option>");
+const buildSelect = () => {
+	const robots = $("select").append("<option>");
 	typesArray.forEach( (index) => {
 		let option = $("<option>").html(`${index.model}`);
 		robots.append(option);
@@ -93,7 +93,7 @@ let buildSelect = () => {
 
 // ANNOUNCE WINNER/////////
 function announce(winner, loser) {
-	let announcement = $("#announcement");
+	const announcement = $("#announcement");
 	let winnerDiv = $("<div>").html(`${winner} destroyed ${loser}!`);
 	announcement.append(winnerDiv);
 	$("#attack").prop("disabled", true);
