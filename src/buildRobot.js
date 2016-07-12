@@ -17,8 +17,7 @@ function storeName(e, $input) {
 //CREATE ROBOT OBJECT AND NAME
 function rbtObj($select) {
 	let divId = $select.attr("id");
-	let robot = typesArray.filter((curr) => {
-		return curr.model === $select.val();
+	let robot = typesArray.filter((curr) => curr.model === $select.val();
 	});
 		let selectName = divId === "robotSelect1" ?
 			(nameOne !== undefined ? (robot[0].name = nameOne) : (robot.name)):
